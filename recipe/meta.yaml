@@ -6,21 +6,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/flake8_no_pep420-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/flake8_no_pep420-{{ version }}.tar.gz
   sha256: 37e2cc47400033de66aa826bd08994aa6f9a2fdf9dfb9705723ff7946812019e
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - setuptools
     - pip
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - flake8 !=3.2.0,>=3.0
 
 test:
@@ -30,6 +30,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/adamchainz/flake8-no-pep420
